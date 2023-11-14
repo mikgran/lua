@@ -4,21 +4,21 @@ function Ready:new()
     local obj = {}
 
     function obj:importFiles()
-        local imports = { "Consts.lua",
-            "Util.lua",
-            "UtilTest.lua",
-            "ObjectDescriptor.lua",
-            "ObjectDescriptorTest.lua",
-            "Opt.lua",
-            "OptTest.lua",
-            "Assert.lua",
-            "AssertTest.lua",
-            "TestResult.lua",
-            "TestRunner.lua",
-            "TestUtil.lua",
-            "CharacterDefaults.lua",
-            "Exp.lua",
-            "ExpTest.lua" }
+        local imports = { "consts.lua",
+            "util.lua",
+            "utiltest.lua",
+            "objectdescriptor.lua",
+            "objectdescriptorTest.lua",
+            "opt.lua",
+            "opttest.lua",
+            "assert.lua",
+            "asserttest.lua",
+            "testresult.lua",
+            "testrunner.lua",
+            "testutil.lua",
+            "characterdefaults.lua",
+            "exp.lua",
+            "exptest.lua" }
 
         for _, name in ipairs(imports) do
             dofile("src/" .. name)
@@ -42,8 +42,8 @@ function Ready:new()
         Util:new():setOptions()
 
         local charDef = CharacterDefaults:new()
-        saveCharDefaults = charDef.saveCharDefaults
-        loadCharDefaults = charDef.loadCharDefaults
+        _G.saveCharDefaults = charDef.saveCharDefaults
+        _G.loadCharDefaults = charDef.loadCharDefaults
         charDef:setDefaults()
     end
 

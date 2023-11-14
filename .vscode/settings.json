@@ -1,0 +1,10 @@
+{
+    "Lua.diagnostics.globals": [
+        "crawl",
+        "you",
+        "c_persist"
+    ],
+    "Lua.diagnostics.disable": [
+        "lowercase-global"
+    ]
+}

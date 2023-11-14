@@ -52,7 +52,7 @@ function UtilTest:new()
         return assert:equals(expected, candidate)
     end
 
-    function obj:testTableContainsTableNot()
+    function obj:testTableContainsTableNot2()
         local assert = Assert:new()
 
         local t1 = { "abc", "cde", "efg" }
