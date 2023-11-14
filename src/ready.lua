@@ -21,7 +21,7 @@ function Ready:new()
             "exptest.lua" }
 
         for _, name in ipairs(imports) do
-            dofile("src/" .. name)
+            require("src/" .. name)
         end
     end
 

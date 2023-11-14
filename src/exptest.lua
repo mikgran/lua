@@ -33,7 +33,7 @@ Transmutations |                                                                
             "25", "", "", "26", "27", "", "", "", "" }
 
         local candidate = exp:get("Earth Magic")
-        
+
         return obj.assert:equals(expected, candidate)
     end
 

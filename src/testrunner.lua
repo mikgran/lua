@@ -25,7 +25,7 @@ function TestRunner:run(table, filter)
         end
 
         Opt:of(obj.tests):
-            forEach(function(key_, testClass)
+            forEach(function(_, testClass)
                 resultMessages:add("\n\nSuite: " .. testClass:getName() .. "\n")
 
                 Opt:of(testClass):

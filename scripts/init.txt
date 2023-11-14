@@ -5,7 +5,7 @@ require = dofile
 function ready()
     if not initializeOnce then
 
-        dofile("src/ready.lua")
+        require("src/ready.lua")
 
         initializeOnce = true
     end
