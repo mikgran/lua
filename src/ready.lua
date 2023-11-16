@@ -19,19 +19,30 @@ function Ready:new()
 
     function obj:importGlobals()
         if obj:isDEV() then
-            function mpr(str) print(str) end
+            function mpr(str)
+                print(str)
+            end
 
             you = {}
-            function you.turns() return 0 end
+            function you.turns()
+                return 0
+            end
 
-            function you.race() return "" end
+            function you.race()
+                return "human"
+            end
 
-            function you.class() return "" end
+            function you.class()
+                return "Fighter"
+            end
 
             crawl = {}
-            function crawl.mpr(s) print(s) end
+            function crawl.mpr(s)
+                print(s)
+            end
 
-            function crawl.setopt(s) end
+            function crawl.setopt(s)
+            end
 
             c_persist = {}
         end

@@ -33,8 +33,6 @@ function Exp:of(expChart)
             flatMap(function(_, all) return split(all, "\n") end):
             with(function(table) lines:use(table) end)
 
-        
-
         Opt:
             of(obj.otherSkills):
             forEach(function(k, skillName)

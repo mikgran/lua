@@ -9,7 +9,6 @@ function Opt:of(val)
         self.isEmptyStr = util.isEmptyStr
         self.isFunction = util.isFunction
         self.isDef = util.isDef
-        self.isUnDef = util.isUnDef
         self.isTable = util.isTable
     end
 
