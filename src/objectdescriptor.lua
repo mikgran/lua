@@ -13,37 +13,37 @@ function ObjectDescriptor:new()
     end
 
     function obj:tostring()
+        local addToTable = function(tbl, key, val)
+            tbl[#tbl + 1] = string.format("\n  %s: %s", tostring(key), val)
+        end
+        local sbcat = function(sb, tbl)
+            local s = sb
+            for _, v in pairs(tbl) do
+                s = s .. v
+            end
+            return s
+        end
+
         local name = obj:getName() or ""
         local sb = name .. "\n("
-        local kvPair = "\n  %s: %s"
         local kvProperties = {}
         local kvFunctions = {}
         local kvTables = {}
         for key, value in pairs(self) do
-            local val = tostring(value)
             if type(value) == "string" then
-                val = "\"" .. val .. "\""
-                kvProperties[#kvProperties + 1] = string.format(kvPair, tostring(key), val)
+                addToTable(kvProperties, key, "\"" .. tostring(value) .. "\"")
             elseif type(value) == "function" then
-                val = "fn"
-                kvFunctions[#kvFunctions + 1] = string.format(kvPair, tostring(key), val)
+                addToTable(kvFunctions, key, "fn")
             elseif type(value) == "table" then
-                val = "{ }"
-                kvTables[#kvTables + 1] = string.format(kvPair, tostring(key), val)
+                addToTable(kvTables, key, "{ }")
             end
         end
         table.sort(kvProperties)
         table.sort(kvFunctions)
         table.sort(kvTables)
-        for _, value in pairs(kvProperties) do
-            sb = sb .. value
-        end
-        for _, value in pairs(kvFunctions) do
-            sb = sb .. value
-        end
-        for _, value in pairs(kvTables) do
-            sb = sb .. value
-        end
+        sb = sbcat(sb, kvProperties)
+        sb = sbcat(sb, kvFunctions)
+        sb = sbcat(sb, kvTables)
         return sb .. "\n)"
     end
 
