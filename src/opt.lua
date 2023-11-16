@@ -3,20 +3,6 @@ Opt = {}
 function Opt:of(val)
     local obj = ObjectDescriptor:new()
 
-    function obj:use(o)
-        if obj:isTable(o) and obj:isDef(o.name) and o.name == "Opt" then
-            obj:use(o:get())
-        elseif obj:isTable(o) then
-            obj.tbl = o
-        elseif obj:isDef(o) then
-            obj.tbl = { o }
-        else
-            obj.tbl = {}
-        end
-
-        return self
-    end
-
     function obj:init(o)
         self.name = "Opt"
         local util = Util:new()
@@ -28,6 +14,23 @@ function Opt:of(val)
     end
 
     obj:init(val)
+
+
+    function obj:use(o)
+        local s = obj
+        if s:isTable(o) and s:isDef(o.name) and o.name == "Opt" then
+            s:use(o:get())
+        elseif s:isTable(o) then
+            s.tbl = o
+        elseif s:isDef(o) then
+            s.tbl = { o }
+        else
+            s.tbl = {}
+        end
+
+        return self
+    end
+
     obj:use(val)
 
     function obj:size()
@@ -51,7 +54,7 @@ function Opt:of(val)
     function obj:map(fn)
         local allResults = {}
         local isResults = false
-        if fn ~= nil and type(fn) == "function" then
+        if fn ~= nil and obj:isFunction(fn) then
             for k, v in pairs(obj.tbl) do
                 local result = fn(k, v)
                 if result then
@@ -67,22 +70,22 @@ function Opt:of(val)
         end
     end
 
-    function obj:forEach(forEachFunction)
-        if forEachFunction ~= nil and type(forEachFunction) == "function" then
+    function obj:forEach(fn)
+        if obj:isFunction(fn) then
             for key, value in pairs(obj.tbl) do
-                forEachFunction(key, value)
+                fn(key, value)
             end
         end
         return self
     end
 
-    function obj:filter(predicate)
+    function obj:filter(pr)
         local results = {}
-        if predicate == nil or type(predicate) ~= "function" then -- no op in malformed call
+        if pr == nil or type(pr) ~= "function" then -- no op in malformed call
             results = obj:get()
         else
             for k, v in pairs(obj.tbl) do
-                if predicate(k, v) then
+                if pr(k, v) then
                     results[k] = v
                 end
             end
@@ -94,7 +97,7 @@ function Opt:of(val)
     function obj:mapc(code)
         local returnValue = {}
         local isResults = false
-        if (not self:isEmptyStr(code)) then
+        if (not obj:isEmptyStr(code)) then
             local codeString = string.format("return function(k, v) %s end", code) -- two return calls
             local function1 = loadstring(codeString)()                             -- function() return function() return %s end end
             setfenv(function1, getfenv())

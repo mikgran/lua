@@ -74,6 +74,15 @@ function Util:new()
 
     function obj:isEmptyStr(o) return (o == nil or o == "") end
 
+    function obj:eq(a, b)
+        local s = obj
+        local isEqual = false
+        if s:isDef(a) and s:isDef(b) and a == b then
+            isEqual = true
+        end
+        return isEqual
+    end
+
     function obj:isFunction(o) return (o ~= nil and type(o) == "function") end
 
     function obj:isTable(o) return (o ~= nil and type(o) == "table") end

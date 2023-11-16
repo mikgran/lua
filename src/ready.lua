@@ -19,6 +19,8 @@ function Ready:new()
 
     function obj:importGlobals()
         if obj:isDEV() then
+            function mpr(str) print(str) end
+
             you = {}
             function you.turns() return 0 end
 
