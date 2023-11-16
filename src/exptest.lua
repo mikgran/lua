@@ -34,6 +34,8 @@ Transmutations |                                                                
 
         local candidate = exp:get("Earth Magic")
 
+        print(exp:tostring())
+
         return obj.assert:equals(expected, candidate)
     end
 

@@ -77,7 +77,7 @@ function Ready:new()
         }
 
         local testFilter = nil
-        -- testFilter = "testAddAll"
+        -- testFilter = "testGet"
         TestRunner:run(tests, testFilter)
 
         Util:new():setOptions()
