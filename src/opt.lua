@@ -129,20 +129,20 @@ function Opt:of(val)
         end
     end
 
-    function obj:with(function1)
+    function obj:with(fn)
         local results = nil
-        if function1 ~= nil and type(function1) == "function" then
-            results = function1(obj.tbl)
+        if fn ~= nil and type(fn) == "function" then
+            results = fn(obj.tbl)
         end
         return Opt:of(results)
     end
 
-    function obj:flatMap(function1)
+    function obj:flatMap(fn)
         local results = {}
         local isResults = false
-        if function1 ~= nil and type(function1) == "function" then
+        if fn ~= nil and type(fn) == "function" then
             for k, v in pairs(obj.tbl) do
-                local c = function1(k, v)
+                local c = fn(k, v)
                 if c ~= nil and type(c) == "table" then
                     for _, v2 in pairs(c) do
                         results[#results + 1] = v2
@@ -167,9 +167,9 @@ function Opt:of(val)
     end
 
     -- keeps existing keys
-    function obj:addAll(table)
-        if table ~= nil and type(table) then
-            for key, value in pairs(table) do
+    function obj:addAll(t)
+        if t ~= nil and type(t) then
+            for key, value in pairs(t) do
                 obj.tbl[#obj.tbl + 1] = value
             end
         end
