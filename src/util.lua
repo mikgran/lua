@@ -1,16 +1,15 @@
 Util = {}
 --[[
-        Use with delegation
-            - avoids crowding global
-            - avoids crowding the class using the Util
-        local util =  Util:new()
-        self.isEmptyStr = util.isEmptyStr
-        self.isFunction = util.isFunction
-        self.isUnDef = util.isUnDef
-        self.isString = util.isString
-        self.isNumber = util.isNumber
-    ]]
---
+    Use with delegation
+        - avoids crowding global
+        - avoids crowding the class using the Util
+    local util =  Util:new()
+    self.isEmptyStr = util.isEmptyStr
+    self.isFunction = util.isFunction
+    self.isUnDef = util.isUnDef
+    self.isString = util.isString
+    self.isNumber = util.isNumber
+]]--
 function Util:new()
     local obj = {} -- no circular references with nothing inherited
 
@@ -106,6 +105,8 @@ function Util:new()
         end
         return returnValue
     end
+
+    function obj:identV(v) return v end
 
     -- unrecursive shallow testing: no table compares
     -- t2 must be a subset of t1, both unordered

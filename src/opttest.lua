@@ -213,7 +213,10 @@ function OptTest:new()
 
         Opt:
             of(strs):
-            forEach(function(k, v) candidate:add(v) end)
+            forEach(
+                function(k, v)
+                    candidate:add(v)
+                end)
 
         return obj.assert:equals(expected, candidate:get())
     end
@@ -225,7 +228,10 @@ function OptTest:new()
 
         Opt:
             of(strs):
-            with(function(tbl) candidate = tbl end)
+            with(
+                function(table)
+                    candidate = table
+                end)
 
         return obj.assert:equals(expected, candidate)
     end
@@ -237,8 +243,14 @@ function OptTest:new()
 
         Opt:
             of(strs):
-            flatMap(function(k, v) return split(v, ",") end):
-            forEach(function(k, v) candidate[#candidate + 1] = v end)
+            flatMap(
+                function(k, v)
+                    return split(v, ",")
+                end):
+            forEach(
+                function(k, v)
+                    candidate[#candidate + 1] = v
+                end)
 
         return obj.assert:equals(expected, candidate)
     end
@@ -248,10 +260,28 @@ function OptTest:new()
         local expected = { "1", "2", "3", "1", "2", "3" }
         local candidate = nil
 
+        local setCandidate = function(table)
+            candidate = table
+        end
+
         Opt:
             of(strs):
             addAll({ "1", "2", "3" }):
-            with(function(tbl) candidate = tbl end)
+            with(setCandidate)
+
+        return obj.assert:equals(expected, candidate)
+    end
+
+    function obj:testFlatMapWithIdent()
+        local strs = { { "a,b,c" }, { "t,u,v" } }
+        local expected = { "a", "b", "c", "t", "u", "v" }
+        local candidate = {}
+
+        Opt:
+            of(strs):
+            flatMap(function(_, v) return v end):
+            flatMap(function(_, v) return split(v, ",") end):
+            forEach(function(_, v) candidate[#candidate + 1] = v end)
 
         return obj.assert:equals(expected, candidate)
     end
