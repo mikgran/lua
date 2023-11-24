@@ -20,7 +20,7 @@ function TestRunner:run(table, filter)
         local resultMessages = Opt:of {}
         local successes = 0
         resultMessages:add("\nTest suites: " .. #obj.tests)
-        if (obj.filter ~= nil) then
+        if (obj.filter) then
             resultMessages:add("\nFilter: " .. obj.filter)
         end
 
